@@ -1,7 +1,6 @@
 package nice.org;
 
 import de.vandermeer.asciitable.AsciiTable;
-import javafx.util.Pair;
 import org.mariuszgromada.math.mxparser.Constant;
 import org.mariuszgromada.math.mxparser.Expression;
 
@@ -15,6 +14,25 @@ import java.util.stream.Collectors;
 import java.util.stream.IntStream;
 
 public class Program {
+    public static class Pair<T, V>{
+        public T key;
+        public V value;
+
+        public Pair(T key, V value) {
+            this.key = key;
+            this.value = value;
+        }
+
+        public T getKey() {
+            return key;
+        }
+
+        public V getValue() {
+            return value;
+        }
+    }
+
+
     /**
      * Точка входа в приложение, управляет меню приложения.
      */
@@ -26,6 +44,11 @@ public class Program {
             System.out.println("Введите выражение и нажмите ENTER:");
             Scanner sc = new Scanner(System.in);
             String expression = sc.nextLine();
+
+            Expression exTest = new Expression(expression);
+            if(!exTest.checkLexSyntax()){
+                System.out.println("Обратите внимание: введёное выражение может быть некорретно.");
+            }
 
             boolean actionDone = false;
             while (!actionDone) {
